@@ -156,13 +156,8 @@ function library:XoxHi(options)
     UserInputService.InputBegan:Connect(function(input) 
         pcall(function() 
             if input.KeyCode == Enum.KeyCode.RightControl then 
-                if OpenUI == true then 
-                    OpenUI = false 
-                    mainUI.Visible = false
-                else
-                    OpenUI = true 
-                    mainUI.Visible = true
-                end 
+                OpenUI = not OpenUI
+                mainUI.Visible = OpenUI
             end 
         end) 
     end)
