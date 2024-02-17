@@ -158,10 +158,10 @@ function library:XoxHi(options)
             if input.KeyCode == Enum.KeyCode.RightControl then 
                 if OpenUI == true then 
                     OpenUI = false 
-                    mainUI:TweenSize(UDim2.new(0 , 0, 0, 0),"In","Elastic",.3,true) 
+                    mainUI.Visible = false
                 else
                     OpenUI = true 
-                    mainUI:TweenSize(UDim2.new(0, 450, 0, 250),"In","Elastic",.3,true) 
+                    mainUI.Visible = true
                 end 
             end 
         end) 
