@@ -152,7 +152,20 @@ function library:XoxHi(options)
 	UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color1), ColorSequenceKeypoint.new(1.00, Color2)}
 	UIGradient.Parent = UIStroke
 
-	local OpenUI = true; UserInputService.InputBegan:Connect(function(input) pcall(function() if input.KeyCode == Enum.KeyCode.RightControl then if OpenUI == true then OpenUI = false mainUI.ClipsDescendants = true mainUI:TweenSize(UDim2.new(0 , 0, 0, 0),"In","Elastic",.3,true) else OpenUI = true mainUI:TweenSize(UDim2.new(0, 450, 0, 250),"In","Elastic",.3,true) repeat wait() until mainUI.Size == UDim2.new(0, 0, 0, 0) mainUI.Visible = false end end end) end)
+	local OpenUI = true; 
+    UserInputService.InputBegan:Connect(function(input) 
+        pcall(function() 
+            if input.KeyCode == Enum.KeyCode.RightControl then 
+                if OpenUI == true then 
+                    OpenUI = false 
+                    mainUI:TweenSize(UDim2.new(0 , 0, 0, 0),"In","Elastic",.3,true) 
+                else
+                    OpenUI = true 
+                    mainUI:TweenSize(UDim2.new(0, 450, 0, 250),"In","Elastic",.3,true) 
+                end 
+            end 
+        end) 
+    end)
 
 	local topMain = Instance.new("Frame")
 	topMain.Name = "topMain"
