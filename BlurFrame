@@ -195,5 +195,4 @@ function library:BlurFrame(getFrame)
 	RunService:BindToRenderStep(uid, 2000, UpdateOrientation)
 	return DepthOfField
 end
-
 return library
