@@ -517,6 +517,11 @@ library.setui = function()
 							end
 							ClonePng.TierImage.Visible = false
 							ClonePng.ImageLabel.BackgroundTransparency = 1
+							ClonePng.MouseButton1Click:Connect(function()
+								if not game.Players.LocalPlayer.Backpack:FindFirstChild('Ethereal') and not game.Players.LocalPlayer.Character:FindFirstChild('Ethereal') and game.Players.LocalPlayer.Character.Humanoid.Health > 0 then
+									game:GetService("ReplicatedStorage"):WaitForChild("Chest"):WaitForChild("Remotes"):WaitForChild("Functions"):WaitForChild("InventoryEq"):InvokeServer(ClonePng.Name)
+								end
+							end)
 						end
 						if v:IsA('UIGridLayout') then
 							ClonePng:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
@@ -535,6 +540,11 @@ library.setui = function()
 							end
 							ClonePng.TierImage.Visible = false
 							ClonePng.ImageLabel.BackgroundTransparency = 1
+							ClonePng.MouseButton1Click:Connect(function()
+								if not game.Players.LocalPlayer.Backpack:FindFirstChild('Ethereal') and not game.Players.LocalPlayer.Character:FindFirstChild('Ethereal') and game.Players.LocalPlayer.Character.Humanoid.Health > 0 then
+									game:GetService("ReplicatedStorage"):WaitForChild("Chest"):WaitForChild("Remotes"):WaitForChild("Functions"):WaitForChild("InventoryEq"):InvokeServer(ClonePng.Name)
+								end
+							end)
 						end
 						if v:IsA('UIGridLayout') then
 							ClonePng:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
