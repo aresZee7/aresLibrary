@@ -1,0 +1,782 @@
+local par = game.CoreGui
+local Tween = game:GetService('TweenService')
+if par:FindFirstChild('Kaitan') then
+	for i,v in pairs(par:GetChildren()) do
+		if v.Name == "Kaitan" then
+			v:Destroy()
+		end
+	end
+end
+
+local Kaitan = Instance.new("ScreenGui")
+Kaitan.Name = "Kaitan"
+Kaitan.Parent = par
+Kaitan.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+local library = {}
+local UserInputService = game:GetService("UserInputService")
+library.setui = function()
+	function dragify(Frame, object)
+		local dragToggle = false
+		local dragSpeed = 0.25
+		local dragInput = nil
+		local dragStart = nil
+		local startPos = nil
+
+		function updateInput(input)
+			if not dragStart then
+				return
+			end
+			local Delta: any = input.Position - dragStart
+			Delta = input.Position - dragStart
+			local Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + Delta.X, startPos.Y.Scale, startPos.Y.Offset + Delta.Y)
+			game:GetService("TweenService"):Create(object, TweenInfo.new(dragSpeed), {Position = Position}):Play()
+		end
+
+		Frame.InputBegan:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+				dragToggle = true
+				dragStart = input.Position
+				startPos = object.Position
+				input.Changed:Connect(function()
+					if input.UserInputState == Enum.UserInputState.End then
+						dragToggle = false
+					end
+				end)
+			end
+		end)
+
+		Frame.InputChanged:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+				dragInput = input
+			end
+		end)
+
+		UserInputService.InputChanged:Connect(function(input)
+			if input == dragInput and dragToggle then
+				updateInput(input)
+			end
+		end)
+	end
+	local Main = Instance.new("Frame")
+	local UICorner = Instance.new("UICorner")
+	local UIStroke = Instance.new("UIStroke")
+
+	Main.Name = "Main"
+	Main.Parent = Kaitan
+	Main.AnchorPoint = Vector2.new(0.5, 0.5)
+	Main.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	Main.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Main.BorderSizePixel = 0
+	Main.ClipsDescendants = true
+	Main.Position = UDim2.new(0.5, 0, 0.5, 0)
+	Main.Size = UDim2.new(0, 600, 0, 300)
+	Main.ZIndex = 3
+	dragify(Main, Main)
+	UICorner.CornerRadius = UDim.new(0, 20)
+	UICorner.Parent = Main
+
+	UIStroke.Color = Color3.fromRGB(170, 0, 255)
+	UIStroke.Thickness = 2
+	UIStroke.Parent = Main
+
+	local PageAll = Instance.new("Frame")
+	local UICorner_2 = Instance.new("UICorner")
+
+	PageAll.Name = "PageAll"
+	PageAll.Parent = Main
+	PageAll.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+	PageAll.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	PageAll.BorderSizePixel = 0
+	PageAll.Position = UDim2.new(0.0272107646, 0, 0.037579827, 0)
+	PageAll.Size = UDim2.new(0.753112018, 0, 0.923299849, 0)
+
+	UICorner_2.CornerRadius = UDim.new(0, 20)
+	UICorner_2.Parent = PageAll
+
+	local Backgroun = Instance.new("Frame")
+	local UICorner_3 = Instance.new("UICorner")
+
+	Backgroun.Name = "Backgroun"
+	Backgroun.Parent = PageAll
+	Backgroun.AnchorPoint = Vector2.new(0.5, 0.5)
+	Backgroun.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	Backgroun.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Backgroun.BorderSizePixel = 0
+	Backgroun.ClipsDescendants = true
+	Backgroun.Position = UDim2.new(0.5, 0, 0.5, 0)
+	Backgroun.Size = UDim2.new(0.949999988, 0, 0.949999988, 0)
+
+	UICorner_3.CornerRadius = UDim.new(0, 20)
+	UICorner_3.Parent = Backgroun
+
+	local Tap = Instance.new("Frame")
+	local UICorner_4 = Instance.new("UICorner")
+	local UIStroke_2 = Instance.new("UIStroke")
+	local PlayerinfoTap = Instance.new("Frame")
+	local UICorner_5 = Instance.new("UICorner")
+	local Playerinfo_2 = Instance.new("TextButton")
+	local UICorner_6 = Instance.new("UICorner")
+	local SwordTap = Instance.new("Frame")
+	local UICorner_7 = Instance.new("UICorner")
+	local Sword_2 = Instance.new("TextButton")
+	local UICorner_8 = Instance.new("UICorner")
+	local FrutsTap = Instance.new("Frame")
+	local UICorner_9 = Instance.new("UICorner")
+	local Fruts_2 = Instance.new("TextButton")
+	local UICorner_10 = Instance.new("UICorner")
+	local AllTap = Instance.new("Frame")
+	local UICorner_11 = Instance.new("UICorner")
+	local All_2 = Instance.new("TextButton")
+	local UICorner_12 = Instance.new("UICorner")
+
+	Tap.Name = "Tap"
+	Tap.Parent = PageAll
+	Tap.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	Tap.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Tap.BorderSizePixel = 0
+	Tap.Position = UDim2.new(1.01775992, 0, 0.0201127194, 0)
+	Tap.Size = UDim2.new(0.245099336, 0, 0.520126522, 0)
+
+	UICorner_4.CornerRadius = UDim.new(0, 20)
+	UICorner_4.Parent = Tap
+
+	UIStroke_2.Color = Color3.fromRGB(15, 15, 15)
+	UIStroke_2.Thickness = 2
+	UIStroke_2.Parent = Tap
+
+	PlayerinfoTap.Name = "PlayerinfoTap"
+	PlayerinfoTap.Parent = Tap
+	PlayerinfoTap.BackgroundColor3 = Color3.fromRGB(170, 0, 255)
+	PlayerinfoTap.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	PlayerinfoTap.BorderSizePixel = 0
+	PlayerinfoTap.Position = UDim2.new(0.113999747, 0, 0.0718452707, 0)
+	PlayerinfoTap.Size = UDim2.new(0.766000092, 0, 0.167381734, 0)
+
+	UICorner_5.CornerRadius = UDim.new(0, 20)
+	UICorner_5.Parent = PlayerinfoTap
+
+	Playerinfo_2.Name = "Playerinfo"
+	Playerinfo_2.Parent = PlayerinfoTap
+	Playerinfo_2.AnchorPoint = Vector2.new(0.5, 0.5)
+	Playerinfo_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Playerinfo_2.BackgroundTransparency = 1.000
+	Playerinfo_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Playerinfo_2.BorderSizePixel = 0
+	Playerinfo_2.Position = UDim2.new(0.5, 0, 0.5, 0)
+	Playerinfo_2.Size = UDim2.new(0.600000024, 0, 0.600000024, 0)
+	Playerinfo_2.Font = Enum.Font.FredokaOne
+	Playerinfo_2.Text = "Player info"
+	Playerinfo_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Playerinfo_2.TextScaled = true
+	Playerinfo_2.TextSize = 14.000
+	Playerinfo_2.TextWrapped = true
+
+	UICorner_6.CornerRadius = UDim.new(0, 20)
+	UICorner_6.Parent = Playerinfo_2
+
+	SwordTap.Name = "SwordTap"
+	SwordTap.Parent = Tap
+	SwordTap.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+	SwordTap.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	SwordTap.BorderSizePixel = 0
+	SwordTap.Position = UDim2.new(0.113999747, 0, 0.28765586, 0)
+	SwordTap.Size = UDim2.new(0.766000092, 0, 0.167381689, 0)
+
+	UICorner_7.CornerRadius = UDim.new(0, 20)
+	UICorner_7.Parent = SwordTap
+
+	Sword_2.Name = "Sword"
+	Sword_2.Parent = SwordTap
+	Sword_2.AnchorPoint = Vector2.new(0.5, 0.5)
+	Sword_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Sword_2.BackgroundTransparency = 1.000
+	Sword_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Sword_2.BorderSizePixel = 0
+	Sword_2.Position = UDim2.new(0.5, 0, 0.5, 0)
+	Sword_2.Size = UDim2.new(0.600000024, 0, 0.600000024, 0)
+	Sword_2.Font = Enum.Font.FredokaOne
+	Sword_2.Text = "Sword"
+	Sword_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Sword_2.TextScaled = true
+	Sword_2.TextSize = 14.000
+	Sword_2.TextWrapped = true
+
+	UICorner_8.CornerRadius = UDim.new(0, 20)
+	UICorner_8.Parent = Sword_2
+
+	FrutsTap.Name = "FrutsTap"
+	FrutsTap.Parent = Tap
+	FrutsTap.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+	FrutsTap.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	FrutsTap.BorderSizePixel = 0
+	FrutsTap.Position = UDim2.new(0.113999747, 0, 0.503466725, 0)
+	FrutsTap.Size = UDim2.new(0.766000092, 0, 0.167381749, 0)
+
+	UICorner_9.CornerRadius = UDim.new(0, 20)
+	UICorner_9.Parent = FrutsTap
+
+	Fruts_2.Name = "Fruts"
+	Fruts_2.Parent = FrutsTap
+	Fruts_2.AnchorPoint = Vector2.new(0.5, 0.5)
+	Fruts_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Fruts_2.BackgroundTransparency = 1.000
+	Fruts_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Fruts_2.BorderSizePixel = 0
+	Fruts_2.Position = UDim2.new(0.5, 0, 0.5, 0)
+	Fruts_2.Size = UDim2.new(0.600000024, 0, 0.600000024, 0)
+	Fruts_2.Font = Enum.Font.FredokaOne
+	Fruts_2.Text = "Fruts"
+	Fruts_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Fruts_2.TextScaled = true
+	Fruts_2.TextSize = 14.000
+	Fruts_2.TextWrapped = true
+
+	UICorner_10.CornerRadius = UDim.new(0, 20)
+	UICorner_10.Parent = Fruts_2
+
+	AllTap.Name = "AllTap"
+	AllTap.Parent = Tap
+	AllTap.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+	AllTap.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	AllTap.BorderSizePixel = 0
+	AllTap.Position = UDim2.new(0.113999747, 0, 0.751249492, 0)
+	AllTap.Size = UDim2.new(0.766000092, 0, 0.167381749, 0)
+
+	UICorner_11.CornerRadius = UDim.new(0, 20)
+	UICorner_11.Parent = AllTap
+
+	All_2.Name = "All"
+	All_2.Parent = AllTap
+	All_2.AnchorPoint = Vector2.new(0.5, 0.5)
+	All_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	All_2.BackgroundTransparency = 1.000
+	All_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	All_2.BorderSizePixel = 0
+	All_2.Position = UDim2.new(0.5, 0, 0.5, 0)
+	All_2.Size = UDim2.new(0.600000024, 0, 0.600000024, 0)
+	All_2.Font = Enum.Font.FredokaOne
+	All_2.Text = "All"
+	All_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+	All_2.TextScaled = true
+	All_2.TextSize = 14.000
+	All_2.TextWrapped = true
+
+	UICorner_12.CornerRadius = UDim.new(0, 20)
+	UICorner_12.Parent = All_2
+
+	library.setinfo = {}
+	library.setinfo.player = function() 
+		local Playerinfo = Instance.new("ScrollingFrame")
+		local UIPadding = Instance.new("UIPadding")
+		local PlayerTitle = Instance.new("TextLabel")
+		local UIListLayout = Instance.new("UIListLayout")
+		local Title = Instance.new("TextLabel")
+		local PlayerStats = Instance.new("TextLabel")
+
+		Playerinfo.Name = "Playerinfo"
+		Playerinfo.Parent = Backgroun
+		Playerinfo.Active = true
+		Playerinfo.AnchorPoint = Vector2.new(0.5, 0.5)
+		Playerinfo.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+		Playerinfo.BackgroundTransparency = 1.000
+		Playerinfo.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Playerinfo.BorderSizePixel = 0
+		Playerinfo.Position = UDim2.new(0.5, 0, 0.23724699, 0)
+		Playerinfo.Size = UDim2.new(0.899999976, 0, 0.374494076, 0)
+		Playerinfo.ScrollBarImageColor3 = Color3.fromRGB(0, 0, 0)
+		Playerinfo.ScrollingEnabled = false
+		Playerinfo.ScrollBarThickness = 2
+		Playerinfo.ScrollingEnabled = false
+
+		UIPadding.Parent = Playerinfo
+		UIPadding.PaddingLeft = UDim.new(0, 5)
+		UIPadding.PaddingTop = UDim.new(0, 5)
+
+		PlayerTitle.Name = "PlayerTitle"
+		PlayerTitle.Parent = Playerinfo
+		PlayerTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		PlayerTitle.BackgroundTransparency = 1.000
+		PlayerTitle.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		PlayerTitle.BorderSizePixel = 0
+		PlayerTitle.Position = UDim2.new(0, 0, -5.2006552e-08, 0)
+		PlayerTitle.Size = UDim2.new(1, 0, 0, 30)
+		PlayerTitle.Font = Enum.Font.SourceSansBold
+		PlayerTitle.Text = "Player Info"
+		PlayerTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+		PlayerTitle.TextSize = 14.000
+
+		UIListLayout.Parent = Playerinfo
+		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+		Title.Name = "Title"
+		Title.Parent = Playerinfo
+		Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Title.BackgroundTransparency = 1.000
+		Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Title.BorderSizePixel = 0
+		Title.Position = UDim2.new(0, 0, -5.2006552e-08, 0)
+		Title.Size = UDim2.new(1, 0, 0, 30)
+		Title.Font = Enum.Font.SourceSans
+		Title.Text = "Stast : is Farming "
+		Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+		Title.TextSize = 14.000
+
+		PlayerStats.Name = "PlayerStats"
+		PlayerStats.Parent = Playerinfo
+		PlayerStats.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		PlayerStats.BackgroundTransparency = 1.000
+		PlayerStats.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		PlayerStats.BorderSizePixel = 0
+		PlayerStats.Position = UDim2.new(0, 0, -5.2006552e-08, 0)
+		PlayerStats.Size = UDim2.new(1, 0, 0, 30)
+		PlayerStats.Font = Enum.Font.SourceSans
+		PlayerStats.Text = "Level : 10, Money : 100000, Game : 100, Race : Shark \n Time: 0:0:0"
+		PlayerStats.TextColor3 = Color3.fromRGB(255, 255, 255)
+		PlayerStats.TextSize = 14.000
+
+		return {
+			['PlayerStats'] = PlayerStats,
+			['Title'] = Title,
+		}
+	end
+	library.setinfo.boss = function()
+		local BossInfo = Instance.new("ScrollingFrame")
+		local UIGridLayout_4 = Instance.new("UIGridLayout")
+		local UIPadding_5 = Instance.new("UIPadding")
+		local Drakenfyr = Instance.new("ImageLabel")
+		local ChaosKraken = Instance.new("ImageLabel")
+		local AbyssalTyrant = Instance.new("ImageLabel")
+		local GhostShip = Instance.new("ImageLabel")
+		local EldritchCrab = Instance.new("ImageLabel")
+		local SeaKing = Instance.new("ImageLabel")
+		local Hydra = Instance.new("ImageLabel")
+
+		BossInfo.Name = "BossInfo"
+		BossInfo.Parent = Backgroun
+		BossInfo.Active = true
+		BossInfo.AnchorPoint = Vector2.new(0.5, 0.5)
+		BossInfo.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+		BossInfo.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		BossInfo.BorderSizePixel = 0
+		BossInfo.Position = UDim2.new(0.5, 0, 0.649999976, 0)
+		BossInfo.Size = UDim2.new(0.899999976, 0, 0.472595543, 0)
+		BossInfo.ScrollBarImageColor3 = Color3.fromRGB(0, 0, 0)
+		BossInfo.ScrollingEnabled = false
+		BossInfo.ScrollBarThickness = 2
+		BossInfo.ScrollingEnabled = false
+
+		GhostShip.Name = "Ghost Ship"
+		GhostShip.Parent = BossInfo
+		GhostShip.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		GhostShip.BackgroundTransparency = 1.000
+		GhostShip.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		GhostShip.BorderSizePixel = 0
+		GhostShip.Position = UDim2.new(0.0605404004, 0, 0.120202005, 0)
+		GhostShip.Size = UDim2.new(0.245730937, 0, 0.234593838, 0)
+		GhostShip.Image = "rbxassetid://8620146789"
+		GhostShip.ImageTransparency = 0.500
+
+		SeaKing.Name = "Sea King"
+		SeaKing.Parent = BossInfo
+		SeaKing.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		SeaKing.BackgroundTransparency = 1.000
+		SeaKing.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		SeaKing.BorderSizePixel = 0
+		SeaKing.Position = UDim2.new(0.0605404004, 0, 0.120202005, 0)
+		SeaKing.Size = UDim2.new(0.245730937, 0, 0.234593838, 0)
+		SeaKing.Image = "rbxassetid://7788782004"
+		SeaKing.ImageTransparency = 0.500
+
+		Hydra.Name = "Hydra"
+		Hydra.Parent = BossInfo
+		Hydra.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Hydra.BackgroundTransparency = 1.000
+		Hydra.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Hydra.BorderSizePixel = 0
+		Hydra.Position = UDim2.new(0.0605404004, 0, 0.120202005, 0)
+		Hydra.Size = UDim2.new(0.245730937, 0, 0.234593838, 0)
+		Hydra.Image = "rbxassetid://11518150703"
+		Hydra.ImageTransparency = 0.500
+
+		Drakenfyr.Name = "Drakenfyr"
+		Drakenfyr.Parent = BossInfo
+		Drakenfyr.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Drakenfyr.BackgroundTransparency = 1.000
+		Drakenfyr.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Drakenfyr.BorderSizePixel = 0
+		Drakenfyr.Size = UDim2.new(0, 100, 0, 100)
+		Drakenfyr.Image = "rbxassetid://131731723306016"
+		Drakenfyr.ImageTransparency = 0.500
+
+		ChaosKraken.Name = "ChaosKraken"
+		ChaosKraken.Parent = BossInfo
+		ChaosKraken.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		ChaosKraken.BackgroundTransparency = 1.000
+		ChaosKraken.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		ChaosKraken.BorderSizePixel = 0
+		ChaosKraken.Size = UDim2.new(0, 100, 0, 100)
+		ChaosKraken.Image = "rbxassetid://117142132569007"
+		ChaosKraken.ImageTransparency = 0.500
+
+		AbyssalTyrant.Name = "AbyssalTyrant"
+		AbyssalTyrant.Parent = BossInfo
+		AbyssalTyrant.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		AbyssalTyrant.BackgroundTransparency = 1.000
+		AbyssalTyrant.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		AbyssalTyrant.BorderSizePixel = 0
+		AbyssalTyrant.Position = UDim2.new(3.94037414e-07, 0, 0.600000024, 0)
+		AbyssalTyrant.Size = UDim2.new(0, 139, 0, 40)
+		AbyssalTyrant.Image = "rbxassetid://88669874386695"
+		AbyssalTyrant.ImageTransparency = 0.500
+
+		EldritchCrab.Name = "Eldritch Crab"
+		EldritchCrab.Parent = BossInfo
+		EldritchCrab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		EldritchCrab.BackgroundTransparency = 1.000
+		EldritchCrab.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		EldritchCrab.BorderSizePixel = 0
+		EldritchCrab.Size = UDim2.new(0, 100, 0, 100)
+		EldritchCrab.Image = "rbxassetid://136950272774770"
+		EldritchCrab.ImageTransparency = 0.500
+
+		return {
+			['Drakenfyr'] = Drakenfyr,
+			['ChaosKraken'] = ChaosKraken,
+			['AbyssalTyrant'] = AbyssalTyrant,
+			['GhostShip'] = GhostShip,
+			['EldritchCrab'] = EldritchCrab,
+			['SeaKing'] = SeaKing,
+			['Hydra'] = Hydra,
+			['BossInfo'] = BossInfo
+		}
+	end
+
+	local Sword = Instance.new("ScrollingFrame")
+	Sword.Name = "Sword"
+	Sword.Parent = Backgroun
+	Sword.Active = true
+	Sword.AnchorPoint = Vector2.new(0.5, 0.5)
+	Sword.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	Sword.BackgroundTransparency = 1.000
+	Sword.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Sword.BorderSizePixel = 0
+	Sword.Position = UDim2.new(0.5, 0, 0.5, 0)
+	Sword.Size = UDim2.new(0.899999976, 0, 0.899999976, 0)
+	Sword.Visible = false
+	Sword.ScrollBarImageColor3 = Color3.fromRGB(0, 0, 0)
+	Sword.ScrollBarThickness = 2
+
+	local Fruts = Instance.new("ScrollingFrame")
+	local UIGridLayout = Instance.new("UIGridLayout")
+	local UIPadding_2 = Instance.new("UIPadding")
+
+	Fruts.Name = "Fruts"
+	Fruts.Parent = Backgroun
+	Fruts.Active = true
+	Fruts.AnchorPoint = Vector2.new(0.5, 0.5)
+	Fruts.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	Fruts.BackgroundTransparency = 1.000
+	Fruts.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Fruts.BorderSizePixel = 0
+	Fruts.Position = UDim2.new(0.5, 0, 0.5, 0)
+	Fruts.Size = UDim2.new(0.899999976, 0, 0.899999976, 0)
+	Fruts.Visible = false
+	Fruts.ScrollBarImageColor3 = Color3.fromRGB(0, 0, 0)
+	Fruts.ScrollBarThickness = 2
+
+	local All = Instance.new("ScrollingFrame")
+	local UIGridLayout_2 = Instance.new("UIGridLayout")
+	local UIPadding_3 = Instance.new("UIPadding")
+	All.Name = "All"
+	All.Parent = Backgroun
+	All.Active = true
+	All.AnchorPoint = Vector2.new(0.5, 0.5)
+	All.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	All.BackgroundTransparency = 1.000
+	All.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	All.BorderSizePixel = 0
+	All.Position = UDim2.new(0.5, 0, 0.5, 0)
+	All.Size = UDim2.new(0.899999976, 0, 0.899999976, 0)
+	All.Visible = false
+	All.ScrollBarImageColor3 = Color3.fromRGB(0, 0, 0)
+	All.ScrollBarThickness = 2
+
+	spawn(function()
+		while wait() do
+			pcall(function()
+				for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.StarterFrame.Inventory_Frame.ScrollingFrame:GetChildren()) do
+					if not Sword:FindFirstChild(v.Name) then
+						local ClonePng = v:Clone()
+						ClonePng.Parent = Sword
+						ClonePng.Name = v.Name
+						if v:IsA('TextButton') then
+							ClonePng.Equipping.Visible = false
+							if ClonePng:FindFirstChild('Highlight') then
+								ClonePng.Highlight.Visible = false
+							end
+							ClonePng.TierImage.Visible = false
+							ClonePng.ImageLabel.BackgroundTransparency = 1
+						end
+						if v:IsA('UIGridLayout') then
+							ClonePng:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+								Sword.CanvasSize = UDim2.new(0, 0, 0, ClonePng.AbsoluteContentSize.Y + 35)
+							end)
+						end
+					end
+					if not All:FindFirstChild(v.Name) then
+						local ClonePng = v:Clone()
+						ClonePng.Parent = All
+						ClonePng.Name = v.Name
+						if v:IsA('TextButton') then
+							ClonePng.Equipping.Visible = false
+							if ClonePng:FindFirstChild('Highlight') then
+								ClonePng.Highlight.Visible = false
+							end
+							ClonePng.TierImage.Visible = false
+							ClonePng.ImageLabel.BackgroundTransparency = 1
+						end
+						if v:IsA('UIGridLayout') then
+							ClonePng:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+								All.CanvasSize = UDim2.new(0, 0, 0, ClonePng.AbsoluteContentSize.Y + 35)
+							end)
+						end
+					end
+				end
+				for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.StarterFrame.Inventory_Frame.ScrollingFrameFruits:GetChildren()) do
+					if not Fruts:FindFirstChild(v.Name) then
+						local ClonePng = v:Clone()
+						ClonePng.Parent = Fruts
+						ClonePng.Name = v.Name
+						if v:IsA('TextButton') then
+							ClonePng.TierImage.Visible = false
+							ClonePng.ImageLabel.BackgroundTransparency = 1
+						end
+						if v:IsA('UIGridLayout') then
+							ClonePng:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+								Fruts.CanvasSize = UDim2.new(0, 0, 0, ClonePng.AbsoluteContentSize.Y + 35)
+							end)
+						end
+					end
+					if not All:FindFirstChild(v.Name) then
+						local ClonePng = v:Clone()
+						ClonePng.Parent = All
+						ClonePng.Name = v.Name
+						if v:IsA('TextButton') then
+							ClonePng.TierImage.Visible = false
+							ClonePng.ImageLabel.BackgroundTransparency = 1
+						end
+						if v:IsA('UIGridLayout') then
+							ClonePng:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+								All.CanvasSize = UDim2.new(0, 0, 0, ClonePng.AbsoluteContentSize.Y + 35)
+							end)
+						end
+					end
+				end
+			end)
+		end
+	end)
+
+	Playerinfo_2.MouseButton1Click:Connect(function()
+		for i,v in pairs(Backgroun:GetChildren()) do
+			if v:IsA('ScrollingFrame') then
+				v.Visible = false
+			end
+		end
+		for i,v in pairs(Backgroun:GetChildren()) do
+			if v.Name == "Playerinfo" or v.Name == "BossInfo" then
+				v.Visible = true
+			end
+		end
+		for _i, _v in pairs(Tap:GetChildren()) do
+			if _v:IsA("Frame") then
+				Tween:Create(
+					_v, 
+					TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out,0,false,0),
+					{
+						BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+					}
+				):Play()
+				for __i, __v in pairs(_v:GetChildren()) do
+					if __v:IsA("TextButton") then
+						Tween:Create(
+							__v, 
+							TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out,0,false,0),
+							{
+								TextColor3 = Color3.fromRGB(255, 255, 255),
+							}
+						):Play()
+					end
+				end
+			end
+		end
+
+		Tween:Create(
+			PlayerinfoTap, 
+			TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out,0,false,0),
+			{
+				BackgroundColor3 = Color3.fromRGB(170, 0, 255),
+			}
+		):Play()
+		Tween:Create(
+			Playerinfo_2, 
+			TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out,0,false,0),
+			{
+				TextColor3 = Color3.fromRGB( 0,0 ,0),
+			}
+		):Play()
+	end)
+
+	Sword_2.MouseButton1Click:Connect(function()
+		for i,v in pairs(Backgroun:GetChildren()) do
+			if v:IsA('ScrollingFrame') then
+				v.Visible = false
+			end
+		end
+		for i,v in pairs(Backgroun:GetChildren()) do
+			if v.Name == "Sword" then
+				v.Visible = true
+			end
+		end
+		for _i, _v in pairs(Tap:GetChildren()) do
+			if _v:IsA("Frame") then
+				Tween:Create(
+					_v, 
+					TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out,0,false,0),
+					{
+						BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+					}
+				):Play()
+				for __i, __v in pairs(_v:GetChildren()) do
+					if __v:IsA("TextButton") then
+						Tween:Create(
+							__v, 
+							TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out,0,false,0),
+							{
+								TextColor3 = Color3.fromRGB(255, 255, 255),
+							}
+						):Play()
+					end
+				end
+			end
+		end
+
+		Tween:Create(
+			SwordTap, 
+			TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out,0,false,0),
+			{
+				BackgroundColor3 = Color3.fromRGB(170, 0, 255),
+			}
+		):Play()
+		Tween:Create(
+			Sword_2, 
+			TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out,0,false,0),
+			{
+				TextColor3 = Color3.fromRGB( 0,0 ,0),
+			}
+		):Play()
+	end)
+
+	Fruts_2.MouseButton1Click:Connect(function()
+		for i,v in pairs(Backgroun:GetChildren()) do
+			if v:IsA('ScrollingFrame') then
+				v.Visible = false
+			end
+		end
+		for i,v: Instance in pairs(Backgroun:GetChildren()) do
+			if v.Name == "Fruts" then
+				v.Visible = true
+			end
+		end
+		for _i, _v in pairs(Tap:GetChildren()) do
+			if _v:IsA("Frame") then
+				Tween:Create(
+					_v, 
+					TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out,0,false,0),
+					{
+						BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+					}
+				):Play()
+				for __i, __v in pairs(_v:GetChildren()) do
+					if __v:IsA("TextButton") then
+						Tween:Create(
+							__v, 
+							TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out,0,false,0),
+							{
+								TextColor3 = Color3.fromRGB(255, 255, 255),
+							}
+						):Play()
+					end
+				end
+			end
+		end
+
+		Tween:Create(
+			FrutsTap, 
+			TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out,0,false,0),
+			{
+				BackgroundColor3 = Color3.fromRGB(170, 0, 255),
+			}
+		):Play()
+		Tween:Create(
+			Fruts_2, 
+			TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out,0,false,0),
+			{
+				TextColor3 = Color3.fromRGB( 0,0 ,0),
+			}
+		):Play()
+	end)
+
+	All_2.MouseButton1Click:Connect(function()
+		for i,v in pairs(Backgroun:GetChildren()) do
+			if v:IsA('ScrollingFrame') then
+				v.Visible = false
+			end
+		end
+		for i,v: Instance in pairs(Backgroun:GetChildren()) do
+			if v.Name == "All" then
+				v.Visible = true
+			end
+		end
+		for _i, _v in pairs(Tap:GetChildren()) do
+			if _v:IsA("Frame") then
+				Tween:Create(
+					_v, 
+					TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out,0,false,0),
+					{
+						BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+					}
+				):Play()
+				for __i, __v in pairs(_v:GetChildren()) do
+					if __v:IsA("TextButton") then
+						Tween:Create(
+							__v, 
+							TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out,0,false,0),
+							{
+								TextColor3 = Color3.fromRGB(255, 255, 255),
+							}
+						):Play()
+					end
+				end
+			end
+		end
+
+		Tween:Create(
+			AllTap, 
+			TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out,0,false,0),
+			{
+				BackgroundColor3 = Color3.fromRGB(170, 0, 255),
+			}
+		):Play()
+		Tween:Create(
+			All_2, 
+			TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out,0,false,0),
+			{
+				TextColor3 = Color3.fromRGB( 0,0 ,0),
+			}
+		):Play()
+	end)
+
+	return library
+end
+return library
