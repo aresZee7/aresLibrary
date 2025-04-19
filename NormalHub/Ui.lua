@@ -147,8 +147,7 @@ Liber.setui = function(ll)
 	ImageLabel.BorderSizePixel = 0
 	ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
 	ImageLabel.Size = UDim2.new(0.600000024, 0, 0.600000024, 0)
-	ImageLabel.Image = "rbxassetid://78590114316385"
-
+	ImageLabel.Image = "rbxassetid://86220577671636"
 	UICorner_3.Parent = Top
 	UICorner_3.CornerRadius = UDim.new(0,0)
 
