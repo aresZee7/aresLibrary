@@ -1,0 +1,15 @@
+local Library = {}
+
+function Library:Create(Class, Properties)
+	local _Instance = (typeof(Class) == "string") and Instance.new(Class) or Class
+
+	if Properties then
+		for Property, Value in pairs(Properties) do
+			_Instance[Property] = Value
+		end
+	end
+
+	return _Instance
+end	
+
+return Library
