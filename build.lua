@@ -5,7 +5,9 @@ function Library:Create(Class, Properties)
 
 	if Properties then
 		for Property, Value in pairs(Properties) do
-			_Instance[Property] = Value
+            if _Instance[Property] then
+			    _Instance[Property] = Value
+            end
 		end
 	end
 
