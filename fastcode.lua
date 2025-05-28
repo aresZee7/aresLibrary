@@ -345,13 +345,15 @@ getgenv().players = plrs
 getgenv().plys = plrs
 getgenv().char = client.Character
 
-warn( 'Loadnew Function', '{ tsw }')
+warn( 'Loadnew Function', '{ tsw, tks, tkd, tkc, pc, wt}')
 getgenv().tkw = task.wait
 getgenv().tks = task.spawn
 getgenv().tkd = task.delay
 getgenv().tkc = task.cancel
 getgenv().pc = pcall
 getgenv().wt = wait
+
+warn( 'Loadnew Tool Fn', '{ copyc, copyp, ify, rsmy, rspy, dex}')
 getgenv().copyc = function()
     local hrp = char and char:FindFirstChild("HumanoidRootPart")
     if hrp then
