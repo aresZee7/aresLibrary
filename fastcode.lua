@@ -1,3 +1,15 @@
+local cloneref = cloneref or function(o) return o end
+COREGUI = cloneref(game:GetService("CoreGui"))
+Players = cloneref(game:GetService("Players"))
+
+if not game:IsLoaded() then
+	local notLoaded = Instance.new("Message")
+	notLoaded.Parent = COREGUI
+	notLoaded.Text = "Waiting for the game to load"
+	game.Loaded:Wait()
+	notLoaded:Destroy()
+end
+
 local Library = {}
 
 function Library:Create(Class, Properties)
@@ -343,7 +355,7 @@ getgenv().client = plr
 getgenv().player = plr
 getgenv().players = plrs
 getgenv().plys = plrs
-getgenv().char = client.Character
+getgenv().char = client and client.Character
 
 warn( 'Loadnew Function', '{ tsw, tks, tkd, tkc, pc, wt}')
 getgenv().tkw = task.wait
