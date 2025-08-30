@@ -10,7 +10,7 @@ if not game:IsLoaded() then
 	notLoaded:Destroy()
 end
 
-repeat task.wait() until game:IsLoaded() client = game.Players.LocalPlayer char=client and client.Character and client and char
+repeat task.wait() until game:IsLoaded() and  game.Players.LocalPlayer and game.Players.LocalPlayer.Character
 
 local Library = {}
 
