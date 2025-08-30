@@ -10,6 +10,8 @@ if not game:IsLoaded() then
 	notLoaded:Destroy()
 end
 
+repeat task.wait() until game:IsLoaded() client = game.Players.LocalPlayer char=client and client.Character and client and char
+
 local Library = {}
 
 function Library:Create(Class, Properties)
