@@ -1,3 +1,6 @@
+-- LocalScript : วางใน StarterPlayerScripts (หรือ StarterGui)
+-- ModuleScript ชื่อ "Librarys" (เนื้อหา = GUI_Studio.lua) วางใน ReplicatedStorage
+
 local isExec = (type(getgenv) == "function" and type(writefile) == "function") and true or false
 local getgenv = isExec and getgenv or function() return _G end
 
@@ -16,12 +19,8 @@ local GuiLoading
 local par
 do
 	local lp = game:GetService("Players").LocalPlayer
-	if isExec then
-		local ok, cg = pcall(function() return game:GetService("CoreGui") end)
-		par = ok and cg or lp:WaitForChild("PlayerGui")
-	else
-		par = lp:WaitForChild("PlayerGui")
-	end
+	-- In-game UI belongs in PlayerGui. Keep it out of CoreGui and executor protection helpers.
+	par = lp:WaitForChild("PlayerGui")
 	local old = par:FindFirstChild("yesheeGUI")
 	if old then old:Destroy() end
 end
@@ -237,6 +236,16 @@ Settings = {
 ]]
 
 local UpdateGUI = {}
+local pendingLabelText = setmetatable({}, { __mode = "k" })
+RunService.Heartbeat:Connect(function()
+	for label, value in pairs(pendingLabelText) do
+		pendingLabelText[label] = nil
+		if label.Parent then
+			label.Text = value
+		end
+	end
+end)
+
 local Window = {}
 local TableUIColors = {}
 local Func = { Options = Settings }	
@@ -295,14 +304,20 @@ local selectedValues = {}
 function Library:Create(Class, Properties)
 	local _Instance = (typeof(Class) == "string") and Instance.new(Class) or Class
 	local isTextInstance = _Instance:IsA("TextLabel") or _Instance:IsA("TextButton") or _Instance:IsA("TextBox")
+	local parent = Properties and Properties.Parent
 
 	if Properties then
 		for Property, Value in pairs(Properties) do
-			_Instance[Property] = Value
+			if Property ~= "Parent" then
+				_Instance[Property] = Value
+			end
 		end
 	end
 	if self.SelectedFont and isTextInstance then
 		_Instance.FontFace = self.SelectedFont
+	end
+	if parent ~= nil then
+		_Instance.Parent = parent
 	end
 	return _Instance
 end	
@@ -326,20 +341,6 @@ _G.SaveGUI = {
 	newPosX = 0,
 	newPosY = 0,
 }
-
-local SoundUI = function(s)
-	if true then return end
-	local ss = Library:Create('Sound', {
-		Parent = workspace
-	})
-	ss.Name = 'Menu Sound'
-	ss.SoundId = s
-
-	ss:Play()
-	delay(3, function()
-		ss:Destroy()
-	end)
-end
 
 local function isVisibleInScrollingFrame(frame, scrollingFrame)
 	local scrollTopLeft = scrollingFrame.AbsolutePosition
@@ -438,8 +439,6 @@ function Library:MakeDragable(Frame, object)
 	end)
 end
 
-local ProtectGui = protectgui or protect_gui or (syn and syn.protect_gui) or function() end
-
 local yesheeGUI = Library:Create("ScreenGui", {
 	Name = "yesheeGUI",
 	ResetOnSpawn = false,
@@ -447,7 +446,7 @@ local yesheeGUI = Library:Create("ScreenGui", {
 	IgnoreGuiInset = true,
 	DisplayOrder = 99,
 	ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-});ProtectGui(yesheeGUI)
+})
 
 
 local BlurEffect = Library:Create("BlurEffect",{
@@ -492,7 +491,6 @@ local PaddingY = 0.5
 local function ShowNotify(iconId, text, color, duration)
 	local islandNotify = getgenv()._IslandNotify
 	if islandNotify then
-		SoundUI('rbxassetid://998971542')
 		islandNotify(iconId, text, color, duration or 3)
 		return
 	end
@@ -574,7 +572,6 @@ local function ShowNotify(iconId, text, color, duration)
 	table.insert(Notifications, Main)
 
 	task.spawn(function()
-		SoundUI('rbxassetid://102846736112350')
 		TweenService:Create(Main, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
 			BackgroundTransparency = 0.05,
 		}):Play()
@@ -651,8 +648,6 @@ local function ShowNotify(iconId, text, color, duration)
 			table.remove(Notifications, table.find(Notifications, Main))
 		end
 	end)
-
-	SoundUI('rbxassetid://998971542')
 end
 
 Func.Notify = function(typg, o)
@@ -979,12 +974,8 @@ Component.AddLabel = function(Container, Options)
 	}
 	table.insert(UpdateGUI, { ['LableFunction'] = LabelSizeConfig })
 
-	function Lables.Func:Set(Value)
-		Lable.Text = Value
-		local textHeight = Lable.TextBounds.Y
-		if textHeight > 12 then
-			Lable.Size = UDim2.new(1, 0, 0, textHeight)
-		end
+	function Lables.Func:Set(V)
+		pendingLabelText[Lable] = V == nil and "" or tostring(V)
 		return self
 	end
 
@@ -5238,9 +5229,6 @@ Librarys.Create = function(o)
 	_G.IsLoaded = false
 	local InToLoader = function(a, x)
 		if YesHeeConfig['Skip Animation'] then return nil end
-		if not x then
-			SoundUI( a or 'rbxassetid://124834506603771')
-		end
 		local tweenInfo = TweenInfo.new(
 			0.5,
 			Enum.EasingStyle.Quad,
@@ -5272,9 +5260,6 @@ Librarys.Create = function(o)
 
 	local OutToLoader = function(a, x)
 		if YesHeeConfig['Skip Animation'] then return nil end
-		if not x then
-			SoundUI(a or 'rbxassetid://107366908379453')
-		end
 		for i = 1, #AnimeParent do
 			if i == 3 then
 				local tweenInfo = TweenInfo.new(
@@ -5315,8 +5300,6 @@ Librarys.Create = function(o)
 	end
 
 	if YesHeeConfig['Skip Animation'] then 
-		SoundUI('rbxassetid://124834506603771') task.wait(1)
-		SoundUI('rbxassetid://107366908379453')
 		for i = 1, #AnimeParent do
 			if i == 3 then
 				local tweenInfo = TweenInfo.new(
@@ -6224,4 +6207,5 @@ Librarys.Create = function(o)
 
 	return Func
 end
+
 return Librarys
