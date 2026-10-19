@@ -6038,7 +6038,7 @@ Librarys.Create = function(o)
 
 		SettingsLeft.CreateLable({
 			Name = "Genie ( Lag )",
-		}):SetFontBold():SetColor(Color3.fromRGB(243, 255, 5))
+		}):SetColor(Color3.fromRGB(243, 255, 5))
 
 		local functionSettingGenie = SettingsLeft.CreateSlider({
 			Name = "Genie Smoothness",
