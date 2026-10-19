@@ -4452,7 +4452,7 @@ Librarys.Create = function(o)
 		SaveSettings()
 	end
 	if Settings['Genie Animation'] ~= nil and not YesHeeConfig['Genie Animation Use'] then
-		YesHeeConfig['Skip Animation Use'] = true
+		YesHeeConfig['Genie Animation'] = true
 		YesHeeConfig['Genie Animation'] = Settings['Genie Animation']
 		SaveSettings()
 	end
