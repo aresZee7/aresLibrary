@@ -1,11 +1,14 @@
+-- LocalScript : วางใน StarterPlayerScripts (หรือ StarterGui)
+-- ModuleScript ชื่อ "Librarys" (เนื้อหา = GUI_Studio.lua) วางใน ReplicatedStorage
+
 local isExec = (type(getgenv) == "function" and type(writefile) == "function") and true or false
 local getgenv = isExec and getgenv or function() return _G end
 
 local function HttpGet(url)
-	if isExec then
-		return game:HttpGet(url)
-	end
-	return game:GetService("HttpService"):GetAsync(url)
+	return request({
+		Url = url,
+    	Method = "GET"
+	}).Body
 end
 
 local LocalizationService = game:GetService("LocalizationService")
