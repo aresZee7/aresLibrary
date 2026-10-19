@@ -1,6 +1,3 @@
--- LocalScript : วางใน StarterPlayerScripts (หรือ StarterGui)
--- ModuleScript ชื่อ "Librarys" (เนื้อหา = GUI_Studio.lua) วางใน ReplicatedStorage
-
 local isExec = (type(getgenv) == "function" and type(writefile) == "function") and true or false
 local getgenv = isExec and getgenv or function() return _G end
 
@@ -19,8 +16,7 @@ local GuiLoading
 local par
 do
 	local lp = game:GetService("Players").LocalPlayer
-	-- In-game UI belongs in PlayerGui. Keep it out of CoreGui and executor protection helpers.
-	par = lp:WaitForChild("PlayerGui")
+	par = game:GetService("CoreGui")
 	local old = par:FindFirstChild("yesheeGUI")
 	if old then old:Destroy() end
 end
