@@ -403,7 +403,7 @@ Liber.setui = function(ll)
 	Icon.BorderSizePixel = 0
 	Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
 	Icon.Size = UDim2.new(0.600000024, 0, 0.600000024, 0)
-	Icon.Image = "rbxassetid://15169955786"
+	Icon.Image = "rbxassetid://15755672846"
 
 	UICorner_8.Parent = TapMain 
 
