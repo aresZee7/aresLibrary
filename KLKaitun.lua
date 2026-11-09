@@ -306,12 +306,12 @@ Liber.setui = function(ll)
 	PlayerDis.TextWrapped = true
 	PlayerDis.TextXAlignment = Enum.TextXAlignment.Right
 
-	PlayerDis.MouseEnter:Connect(function()
+	--[[.MouseEnter:Connect(function()
 		PlayerDis.Text = "User ID : " .. game.Players.LocalPlayer.UserId
 	end)
 	PlayerDis.MouseLeave:Connect(function()
 		PlayerDis.Text = "User ID : " .. setBlurText(game.Players.LocalPlayer.UserId)
-	end)
+	end)]]
 
 	local TapMain = Instance.new("Frame")
 	local ScrollingFrameTap = Instance.new("ScrollingFrame")
