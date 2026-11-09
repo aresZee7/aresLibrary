@@ -101,7 +101,6 @@ Liber.setui = function(ll)
 	Windown.ClipsDescendants = true
 	Windown.Position = UDim2.new(0.499735594, 0, 0.498813748, 0)
 	Windown.Size = UDim2.new(0.650000024, 0, 0, 0)
-	Windown.Visible = false
 	
 	TweenService:Create(
 		Windown, 
@@ -282,12 +281,12 @@ Liber.setui = function(ll)
 	PlayerName.TextWrapped = true
 	PlayerName.TextXAlignment = Enum.TextXAlignment.Right
 
-	PlayerName.MouseEnter:Connect(function()
+	--[[PlayerName.MouseEnter:Connect(function()
 		PlayerName.Text = "User Name: " .. game.Players.LocalPlayer.Name
 	end)
 	PlayerName.MouseLeave:Connect(function()
 		PlayerName.Text = "User Name: " .. setBlurText(game.Players.LocalPlayer.Name)
-	end)
+	end)]]
 
 	PlayerDis.Name = "PlayerDis"
 	PlayerDis.Parent = Top
@@ -956,26 +955,28 @@ Liber.setui = function(ll)
 		Fruts.Size = UDim2.new(0.467587292, 0, 0.858554065, 0)
 		Fruts.ScrollBarThickness = 2
 
-        local CloneDD = game:GetService("Players").LocalPlayer.PlayerGui.Backpack.InventoryFrame.ScrollingFrame.UIGridLayout:Clone()
-        CloneDD.Parent = Fruts
+    local CloneDD = game:GetService("Players").LocalPlayer.PlayerGui.Backpack.InventoryFrame.ScrollingFrame.UIGridLayout:Clone()
+    CloneDD.Parent = Fruts
 
-        local CloneDD = game:GetService("Players").LocalPlayer.PlayerGui.Backpack.InventoryFrame.ScrollingFrame.UIGridLayout:Clone()
-        CloneDD.Parent = Sword
-		spawn(function()
+    local CloneDD = game:GetService("Players").LocalPlayer.PlayerGui.Backpack.InventoryFrame.ScrollingFrame.UIGridLayout:Clone()
+    CloneDD.Parent = Sword
+
+    spawn(function()
 			while wait() do
-				pcall(function()
-					for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.StarterFrame.Inventory_Frame.ScrollingFrameSwords:GetChildren()) do
+        for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.StarterFrame.Inventory_Frame.ScrollingFrameSwords:GetChildren()) do
 						if not Sword:FindFirstChild(v.Name) then
 							local ClonePng = v:Clone()
 							ClonePng.Parent = Sword
 							ClonePng.Name = v.Name
 							if v:IsA('TextButton') then
-								ClonePng.Equipping.Visible = false
+                if ClonePng:FindFirstChild('EquippingIcon') then
+								  ClonePng.EquippingIcon.Visible = false
+                end
 								if ClonePng:FindFirstChild('Highlight') then
 									ClonePng.Highlight.Visible = false
 								end
 								ClonePng.TierImage.Visible = false
-								ClonePng.ImageLabel.BackgroundTransparency = 1
+								ClonePng.CanvasGroup.ImageLabel.BackgroundTransparency = 1
 								ClonePng.MouseButton1Click:Connect(function()
 									if not game.Players.LocalPlayer.Backpack:FindFirstChild('Ethereal') and not game.Players.LocalPlayer.Character:FindFirstChild('Ethereal') and game.Players.LocalPlayer.Character.Humanoid.Health > 0 then
 										game:GetService("ReplicatedStorage"):WaitForChild("Chest"):WaitForChild("Remotes"):WaitForChild("Functions"):WaitForChild("InventoryEq"):InvokeServer(ClonePng.Name)
@@ -991,11 +992,10 @@ Liber.setui = function(ll)
 							ClonePng.Name = v.Name
 							if v:IsA('TextButton') then
 								ClonePng.TierImage.Visible = false
-								ClonePng.ImageLabel.BackgroundTransparency = 1
+								ClonePng.CanvasGroup.ImageLabel.BackgroundTransparency = 1
 							end
 						end
 					end
-				end)
 			end
 		end)
 	end
