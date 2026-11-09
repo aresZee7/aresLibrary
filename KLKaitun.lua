@@ -568,7 +568,7 @@ Liber.setui = function(ll)
 
 
 		local getPercentageGui = function(lv, item)
-			local lvMax = 4800
+			local lvMax = 5450
 			local itemMax = 20
 			local lvPercentage = lv / lvMax
 			local itemPercentage = item / itemMax
