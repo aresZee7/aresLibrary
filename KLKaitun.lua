@@ -959,7 +959,7 @@ Liber.setui = function(ll)
 		spawn(function()
 			while wait() do
 				pcall(function()
-					for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.StarterFrame.Inventory_Frame.ScrollingFrame:GetChildren()) do
+					for i,v in pairs(game:GetService("StarterGui").MainGui.StarterFrame.Inventory_Frame.ScrollingFrameSwords:GetChildren()) do
 						if not Sword:FindFirstChild(v.Name) then
 							local ClonePng = v:Clone()
 							ClonePng.Parent = Sword
