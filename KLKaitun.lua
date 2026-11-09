@@ -956,10 +956,15 @@ Liber.setui = function(ll)
 		Fruts.Size = UDim2.new(0.467587292, 0, 0.858554065, 0)
 		Fruts.ScrollBarThickness = 2
 
+        local CloneDD = game:GetService("Players").LocalPlayer.PlayerGui.Backpack.InventoryFrame.ScrollingFrame.UIGridLayout:Clone()
+        CloneDD.Parent = Fruts
+
+        local CloneDD = game:GetService("Players").LocalPlayer.PlayerGui.Backpack.InventoryFrame.ScrollingFrame.UIGridLayout:Clone()
+        CloneDD.Parent = Sword
 		spawn(function()
 			while wait() do
 				pcall(function()
-					for i,v in pairs(game:GetService("StarterGui").MainGui.StarterFrame.Inventory_Frame.ScrollingFrameSwords:GetChildren()) do
+					for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.StarterFrame.Inventory_Frame.ScrollingFrameSwords:GetChildren()) do
 						if not Sword:FindFirstChild(v.Name) then
 							local ClonePng = v:Clone()
 							ClonePng.Parent = Sword
@@ -977,12 +982,6 @@ Liber.setui = function(ll)
 									end
 								end)
 							end
-							if v:IsA('UIGridLayout') then
-								ClonePng.CellSize = UDim2.new(0, 88, 0, 87)
-								ClonePng:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
-									Sword.CanvasSize = UDim2.new(0, 0, 0, ClonePng.AbsoluteContentSize.Y + 35)
-								end)
-							end
 						end
 					end
 					for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.StarterFrame.Inventory_Frame.ScrollingFrameFruits:GetChildren()) do
@@ -993,12 +992,6 @@ Liber.setui = function(ll)
 							if v:IsA('TextButton') then
 								ClonePng.TierImage.Visible = false
 								ClonePng.ImageLabel.BackgroundTransparency = 1
-							end
-							if v:IsA('UIGridLayout') then
-								ClonePng.CellSize = UDim2.new(0, 88, 0, 87)
-								ClonePng:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
-									Fruts.CanvasSize = UDim2.new(0, 0, 0, ClonePng.AbsoluteContentSize.Y + 35)
-								end)
 							end
 						end
 					end
